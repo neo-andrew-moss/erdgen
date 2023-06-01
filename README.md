@@ -2,7 +2,9 @@
 
 ## Overview
 
-This Python program generates Database Markup Language (DBML) Entity Relationship Diagram's (ERD) from the `relationships` node in your dbt YML files. The script parses the YML files, extracts relationships and columns, and outputs a `DBML` schema. This program is pretty opinionated.  It requires each YML file to only contain one model. Further, the `relationships`` node in dbt yml is a made-up construct.
+This Python program generates Database Markup Language (DBML) Entity Relationship Diagram's (ERD) from the relationships node in your dbt YML files. The script parses the YML files, extracts relationships and columns, and outputs a DBML schema.
+
+The program is pretty opinionated. It requires each YML file to only contain one model. Further, the "relationships" node in dbt yml is a made-up construct.
 
 This program is useful for automated ERD generation if your dbt project doesn't have referential integrity or explicit SQL relationships. If your SQL models have defined SQL relationships there are better tools for automated ERD generation.
 
@@ -13,7 +15,7 @@ The main function to call is `generate_dbml_schema(directory, include_non_join_k
 For example:
 
 ```python
-print(generate_dbml_schema('./models/marts/growth', include_non_join_keys=True))
+print(generate_dbml_schema('./models', include_non_join_keys=True))
 ```
 
 ## YML File Structure
@@ -25,7 +27,7 @@ version: 2
 
 models:
  - name: Computer
-   description: Computer beep boop beep
+   description: beep boop beep
    columns:
      - name: computerId
        description: The unique identifier of computer
@@ -109,7 +111,11 @@ pylint ./dbt-erd-generator.py
 
 ## TODO
 
-- [] Make this a CLI
-- [] Package this for consumption
-- [] Add better error handling and reporting
-- [] Perhaps add a debug/verbose mode
+- Make this a CLI
+- Package this on pypi
+- Add better error handling and reporting
+- Perhaps add a debug/verbose mode
+- Add tests lol
+- make pylint happy
+- better tooling and configs
+- make it less jank
