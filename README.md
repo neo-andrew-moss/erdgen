@@ -10,13 +10,16 @@ This program is useful for automated ERD generation if your dbt project doesn't 
 
 ## Usage
 
-The main function to call is `generate_dbml_schema(directory, include_non_join_keys=False)`, where the directory is the path to the directory that contains your YML files. The `include_non_join_keys` parameter controls whether or not any non-join keys are included in the ERD.
-
-For example:
-
-```python
-print(generate_dbml_schema('./models', include_non_join_keys=True))
+```bash
+python -m dbt_erd_generator --directory <directory> --include_non_join_keys <True/False>
 ```
+
+### Args
+
+- `--directory`: Directory to search for YAML files. The default value is the current directory ('.').
+- `--include_non_join_keys`: Boolean flag to indicate whether to include non-join keys in the DBML. The default value is `False`.
+
+The DBML will be printed to the console. You can redirect this output to a file if desired.
 
 ## YML File Structure
 
@@ -102,16 +105,15 @@ pip install -r requirements.txt
 ## Format
 
 ```bash
-black ./dbt-erd-generator.py
+make format
 ```
 
 ```bash
-pylint ./dbt-erd-generator.py
+make lint
 ```
 
 ## TODO
 
-- Make this a CLI
 - Package this on pypi
 - Add better error handling and reporting
 - Perhaps add a debug/verbose mode

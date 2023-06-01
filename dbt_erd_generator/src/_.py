@@ -1,18 +1,23 @@
+"""src"""
 import os
-import yaml
 from functools import reduce
+from typing import List, Tuple, Dict, Union
+import yaml
 from jinja2 import Template
 
-
-def load_yml(file):
+def load_yml(file: str) -> Dict:
+    """load_yml"""
     with open(file, "r") as stream:
         try:
             return yaml.safe_load(stream)
-        except yaml.YAMLError as e:
-            print(e)
+        except yaml.YAMLError as err:
+            print(err)
 
 
-def extract_columns(file, include_non_join_keys=False):
+def extract_columns(
+    file: str, include_non_join_keys: bool = False
+) -> List[Tuple[str, str]]:
+    """extract_columns"""
     data = load_yml(file)
     columns = data["models"][0]["columns"]
     relationships = data["models"][0].get("relationships", [])
@@ -22,13 +27,14 @@ def extract_columns(file, include_non_join_keys=False):
         return [(col["name"], "int") for col in columns]
     else:
         return [
-            (col["name"], "int")
+            (col["name"], "int") # Always int
             for col in columns
-            if col["name"] in join_cols or "Id" in col["name"] or "id" in col["name"]
+            if col["name"] in join_cols or "Id" in col["name"] or "id" in col["name"] # Include `id` & `ID` columns always
         ]
 
 
-def extract_relationships(file):
+def extract_relationships(file: str) -> List[Tuple[str, str, str, str, str]]:
+    """extract_relationships"""
     data = load_yml(file)
     relationships = data["models"][0].get("relationships", [])
     return [
@@ -43,14 +49,15 @@ def extract_relationships(file):
     ]
 
 
-def generate_dbml(file, include_non_join_keys=False):
+def generate_dbml(file: str, include_non_join_keys: bool = False) -> str:
+    """generate_dbml"""
     table_name = os.path.splitext(os.path.basename(file))[0]
     columns = extract_columns(file, include_non_join_keys)
     relationships = extract_relationships(file)
 
     columns_with_refs = []
     for name, _ in columns:
-        column = {"name": name, "is_ref": False}
+        column: Dict[str, Union[str, bool]] = {"name": name, "is_ref": False}
         for _, table, _, local, remote in relationships:
             if name == local:
                 column.update(
@@ -80,7 +87,8 @@ def generate_dbml(file, include_non_join_keys=False):
     return dbml_template.render(models=models)
 
 
-def generate_dbml_schema(directory, include_non_join_keys=False):
+def generate_dbml_schema(directory: str, include_non_join_keys: bool = False) -> str:
+    """generate_dbml_schema"""
     yml_files = [
         os.path.join(directory, file)
         for file in os.listdir(directory)
@@ -88,6 +96,3 @@ def generate_dbml_schema(directory, include_non_join_keys=False):
     ]
     dbml_files = map(lambda file: generate_dbml(file, include_non_join_keys), yml_files)
     return reduce(lambda a, b: a + b, dbml_files, "")
-
-
-print(generate_dbml_schema(".", include_non_join_keys=True))
