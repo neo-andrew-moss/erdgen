@@ -5,6 +5,7 @@ from typing import List, Tuple, Dict, Union
 import yaml
 from jinja2 import Template
 
+
 def load_yml(file: str) -> Dict:
     """load_yml"""
     with open(file, "r") as stream:
@@ -27,9 +28,11 @@ def extract_columns(
         return [(col["name"], "int") for col in columns]
     else:
         return [
-            (col["name"], "int") # Always int
+            (col["name"], "int")  # Always int
             for col in columns
-            if col["name"] in join_cols or "Id" in col["name"] or "id" in col["name"] # Include `id` & `ID` columns always
+            if col["name"] in join_cols
+            or "Id" in col["name"]
+            or "id" in col["name"]  # Include `id` & `ID` columns always
         ]
 
 

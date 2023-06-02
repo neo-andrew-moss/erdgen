@@ -1,8 +1,8 @@
 format: 
-	black ./dbt_erd_generator
+	black ./erdgen
 
 lint:
-	pylint ./dbt_erd_generator
+	pylint ./erdgen
 
 release: dist
 	twine upload dist/*
