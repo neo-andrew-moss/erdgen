@@ -1,4 +1,6 @@
-# DBT YML ERD Generator
+# `erdgen`
+
+> DBT YML ERD Generator
 
 ## Overview
 
@@ -11,7 +13,7 @@ This program is useful for automated ERD generation if your dbt project doesn't 
 ## Usage
 
 ```bash
-python -m dbt_erd_generator --directory <directory> --include_non_join_keys <True/False>
+python -m erdgen --directory <directory> --include_non_join_keys <True/False>
 ```
 
 ### Args

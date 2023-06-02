@@ -1,6 +1,6 @@
 """cli"""
 import click
-from dbt_erd_generator.src._ import generate_dbml_schema
+from erdgen.src._ import generate_dbml_schema
 
 
 @click.command()
