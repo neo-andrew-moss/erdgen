@@ -116,10 +116,7 @@ make lint
 
 ## TODO
 
-- Package this on pypi
 - Add better error handling and reporting
 - Perhaps add a debug/verbose mode
 - Add tests lol
-- make pylint happy
-- better tooling and configs
 - make it less jank
