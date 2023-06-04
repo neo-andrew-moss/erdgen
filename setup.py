@@ -10,7 +10,7 @@ setup(
     author_email="andrew.moss@neofinancial.com",
     python_requires=">=3.6",
     name="erdgen",
-    version="0.0.1rc2",
+    version="0.0.1rc3",
     description="Generate a DBML ERD from DBT YML relationships",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

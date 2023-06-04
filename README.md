@@ -2,6 +2,8 @@
 
 > DBT YML ERD Generator
 
+[![pypi](https://img.shields.io/pypi/v/erdgen?style=for-the-badge)](https://pypi.org/project/erdgen/)
+
 ## Overview
 
 This Python program generates Database Markup Language (DBML) Entity Relationship Diagram's (ERD) from the relationships node in your dbt YML files. The script parses the YML files, extracts relationships and columns, and outputs a DBML schema.
@@ -31,35 +33,33 @@ The YML files are expected to have the following structure:
 version: 2
 
 models:
- - name: Computer
-   description: beep boop beep
-   columns:
-     - name: computerId
-       description: The unique identifier of computer
-     # other non-join key columns as necessary
-   relationships:
-     - name: files
-       description: The files are in the computer!?
-       type: one_to_many
-       table: computer_files
-       join:
-         - local: computerId
-           remote: computerId
+    - name: Computer
+      description: beep boop beep
+      columns:
+          - name: computerId
+            description: The unique identifier of computer
+          # other non-join key columns as necessary
+      relationships:
+          - name: files
+            description: The files are in the computer!?
+            type: one_to_many
+            table: computer_files
+            join:
+                - local: computerId
+                  remote: computerId
 ```
 
 **note**: Each YML file should contain only one model under the `models` node.
 
 ### Relationships
 
-The `relationships` node in the YAML files represents the relationship between the current model and other models. It is composed of several sub-nodes:
+The `relationships` node in the YML files represents the relationship between the current model and other models. It is composed of several sub-nodes:
 
 - `name`: The name of the relationship.
 - `description`: A brief description of the relationship.
-- `type`: The type of the relationship. It can be one_to_one, one_to_many, many_to_one, or many_to_many.
+- `type`: The type of the relationship. It can be `one_to_one`, `one_to_many`, `many_to_one`, or `many_to_many`.
 - `table`: The name of the other model involved in the relationship.
-- `join`: A list of the columns that are used for the join between the current model and the other model. Each item in the list is composed of 'local' and - 'remote' nodes, representing the column in the current model and the column in the other model, respectively.
-
-The type value can be one of the following: `one_to_one`, `one_to_many`, `many_to_one`, and `many_to_many`.
+- `join`: A list of the columns that are used for the join between the current model and the other model. Each item in the list is composed of `local` and - `remote` nodes, representing the column in the current model and the column in the other model, respectively.
 
 ## Output
 
@@ -118,5 +118,4 @@ make lint
 
 - Add better error handling and reporting
 - Perhaps add a debug/verbose mode
-- Add tests lol
 - make it less jank
