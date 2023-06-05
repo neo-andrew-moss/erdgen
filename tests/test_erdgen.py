@@ -1,7 +1,7 @@
 import pytest
 import os
 from tempfile import TemporaryDirectory
-from erdgen.src._ import (
+from erdgen.src.erdgen import (
     load_yml,
     generate_dbml,
     generate_dbml_schema,
