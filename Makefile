@@ -1,8 +1,8 @@
 format:
-	black ./erdgen
+	black ./erdgen ./tests
 
 lint:
-	pylint ./erdgen
+	pylint ./erdgen ./tests
 
 clean: clean-build clean-pyc clean-test
 
@@ -21,6 +21,9 @@ clean-pyc:
 
 clean-test:
 	rm -fr .pytest_cache
+
+test:
+	pytest ./tests
 
 release: dist
 	twine upload dist/*

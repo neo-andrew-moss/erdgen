@@ -104,6 +104,12 @@ env\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
+## Test
+
+```bash
+make test
+```
+
 ## Format
 
 ```bash
