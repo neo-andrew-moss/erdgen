@@ -14,6 +14,7 @@ def load_yml(file: str) -> Dict:
             return yaml.safe_load(stream)
         except yaml.YAMLError as err:
             print(err)
+            raise err
 
 
 def extract_columns(
