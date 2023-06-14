@@ -104,13 +104,13 @@ env\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
-## Test
+### Test
 
 ```bash
 make test
 ```
 
-## Format
+### Format
 
 ```bash
 make format
@@ -120,7 +120,7 @@ make format
 make lint
 ```
 
-## Version & Release
+### Version & Release
 
 ```bash
 bump2version <major/minor/patch>
@@ -132,8 +132,16 @@ make release
 
 **note** Don't forget to `git push` with `--tags`
 
-## TODO
+### pre-commit
 
-- Add better error handling and reporting
-- Perhaps add a debug/verbose mode
-- make it less jank
+#### Setup
+
+```bash
+pre-commit install
+```
+
+#### Run all
+
+```bash
+make pre-commit
+```

@@ -11,6 +11,9 @@ lint:
 typecheck:
 	mypy $(src) $(tst)
 
+pre-commit:
+	pre-commit run --all-files
+
 clean: clean-build clean-pyc clean-test
 
 clean-build:
