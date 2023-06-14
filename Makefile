@@ -1,8 +1,15 @@
+src = erdgen
+tst = tests
+
 format:
-	black ./erdgen ./tests
+	isort $(src) $(tst)
+	black $(src) $(tst)
 
 lint:
-	pylint ./erdgen ./tests
+	pylint $(src) $(tst)
+
+typecheck:
+	mypy $(src) $(tst)
 
 clean: clean-build clean-pyc clean-test
 
@@ -23,7 +30,7 @@ clean-test:
 	rm -fr .pytest_cache
 
 test:
-	pytest ./tests
+	pytest $(tst)
 
 release: dist
 	twine upload dist/*

@@ -1,12 +1,14 @@
-import pytest
 import os
 from tempfile import TemporaryDirectory
+
+import pytest
+
 from erdgen.src.erdgen import (
-    load_yml,
+    extract_columns,
+    extract_relationships,
     generate_dbml,
     generate_dbml_schema,
-    extract_relationships,
-    extract_columns,
+    load_yml,
 )
 
 sample_yaml_content = """

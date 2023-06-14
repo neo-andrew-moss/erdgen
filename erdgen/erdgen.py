@@ -1,5 +1,6 @@
 """cli"""
 import click
+
 from erdgen.src.erdgen import generate_dbml_schema
 
 

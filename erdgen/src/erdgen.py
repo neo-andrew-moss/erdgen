@@ -1,7 +1,8 @@
 """src"""
 import os
 from functools import reduce
-from typing import List, Tuple, Dict, Union
+from typing import Dict, List, Tuple, Union
+
 import yaml
 from jinja2 import Template
 
