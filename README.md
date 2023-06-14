@@ -130,6 +130,8 @@ bump2version <major/minor/patch>
 make release
 ```
 
+**note** Don't forget to `git push` with `--tags`
+
 ## TODO
 
 - Add better error handling and reporting
