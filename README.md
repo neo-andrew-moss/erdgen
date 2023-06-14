@@ -120,6 +120,16 @@ make format
 make lint
 ```
 
+## Version & Release
+
+```bash
+bump2version <major/minor/patch>
+```
+
+```bash
+make release
+```
+
 ## TODO
 
 - Add better error handling and reporting
