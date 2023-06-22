@@ -78,30 +78,12 @@ The output is a DBML schema that includes the tables, columns, and references ba
 
 ## DEV
 
-### Create venv
+> See the [`Makefile`](./Makefile) for all dev commands
+
+### Setup `venv` and install deps
 
 ```bash
-python -m venv env
-```
-
-### Activate venv
-
-- unix
-
-```bash
-source env/bin/activate
-```
-
-- windows
-
-```bash
-env\Scripts\activate.bat
-```
-
-### Install Packages
-
-```bash
-pip install -r requirements.txt
+make install
 ```
 
 ### Test
@@ -123,7 +105,7 @@ make lint
 ### Version & Release
 
 ```bash
-bump2version <major/minor/patch>
+make version-<major/minor/patch>
 ```
 
 ```bash
@@ -137,7 +119,7 @@ make release
 #### Setup
 
 ```bash
-pre-commit install
+make install-pre-commit
 ```
 
 #### Run all
