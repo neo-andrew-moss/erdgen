@@ -7,43 +7,43 @@ COLOR_RED=\033[1;31m
 
 src = erdgen
 tst = tests
+venv = env/bin/activate
+pip = $(venv) && pip
+
+.PHONY: install create-venv rm-venv deactivate-venv upgrade-pip install-dependencies install-pre-commit post-install freeze format lint typecheck pre-commit clean clean-build clean-pyc clean-mypy clean-test test version-patch version-minor version-major release dist
 
 install: create-venv upgrade-pip install-dependencies install-pre-commit post-install
 
 create-venv:
-	@echo -e "$(COLOR_CYAN)Creating virtual environment...$(COLOR_RESET)" && \
+	@echo -e "$(COLOR_CYAN)Creating virtual environment...$(COLOR_RESET)"
 	python -m venv env
 
 rm-venv:
-	@echo -e "$(COLOR_CYAN)Removing virtual environment$(COLOR_RESET)" && \
-	rm -rf env
+	@echo -e "$(COLOR_CYAN)Removing virtual environment$(COLOR_RESET)"
+	$(RM) -rf env
 
 deactivate-venv:
-	@echo -e "$(COLOR_CYAN)Deactivating virtual environment$(COLOR_RESET)" && \
+	@echo -e "$(COLOR_CYAN)Deactivating virtual environment$(COLOR_RESET)"
 	source deactivate
 
 upgrade-pip:
-	@echo -e "$(COLOR_CYAN)Upgrading pip...$(COLOR_RESET)" && \
-	source env/bin/activate && \
-	pip install --upgrade pip >> /dev/null
+	@echo -e "$(COLOR_CYAN)Upgrading pip...$(COLOR_RESET)"
+	source $(pip) install --upgrade pip >> /dev/null
 
 install-dependencies:
-	@echo -e "$(COLOR_CYAN)Installing dependencies...$(COLOR_RESET)" && \
-	source env/bin/activate && \
-	pip install -r requirements.txt
+	@echo -e "$(COLOR_CYAN)Installing dependencies...$(COLOR_RESET)"
+	source $(pip) install -r requirements.txt
 
 install-pre-commit:
-	@echo -e "$(COLOR_CYAN)Installing pre-commit hooks...$(COLOR_RESET)" && \
-	source env/bin/activate && \
-	pre-commit install
+	@echo -e "$(COLOR_CYAN)Installing pre-commit hooks...$(COLOR_RESET)"
+	source $(venv) && pre-commit install
 
 post-install:
 	@echo -e "$(COLOR_GREEN)Install complete.$(COLOR_RESET)"
 	@echo -e "$(COLOR_RED)YOU MUST ACTIVATE YOUR VIRTUAL ENVIRONMENT, RUN A: \"source env/bin/activate\"$(COLOR_RESET)"
 
 freeze:
-	source env/bin/activate && \
-	pip freeze > requirements.txt
+	source $(pip) freeze > requirements.txt
 
 format:
 	isort $(src) $(tst)
@@ -61,23 +61,23 @@ pre-commit:
 clean: clean-build clean-pyc clean-test clean-mypy
 
 clean-build:
-	rm -fr build/
-	rm -fr dist/
-	rm -fr .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+	$(RM) -fr build/
+	$(RM) -fr dist/
+	$(RM) -fr .eggs/
+	find . -name '*.egg-info' -exec $(RM) -fr {} +
+	find . -name '*.egg' -exec $(RM) -f {} +
 
 clean-pyc:
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+	find . -name '*.pyc' -exec $(RM) -f {} +
+	find . -name '*.pyo' -exec $(RM) -f {} +
+	find . -name '*~' -exec $(RM) -f {} +
+	find . -name '__pycache__' -exec $(RM) -fr {} +
 
 clean-mypy:
-	rm -fr .mypy_cache/
+	$(RM) -fr .mypy_cache/
 
 clean-test:
-	rm -fr .pytest_cache
+	$(RM) -fr .pytest_cache
 
 test:
 	pytest $(tst)
@@ -86,10 +86,10 @@ version-patch:
 	bump2version patch
 
 version-minor:
-	bump2version patch
+	bump2version minor
 
 version-major:
-	bump2version patch
+	bump2version major
 
 release: typecheck dist
 	twine upload dist/*
