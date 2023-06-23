@@ -78,31 +78,15 @@ The output is a DBML schema that includes the tables, columns, and references ba
 
 ## DEV
 
-### Create venv
+### Setup
 
 ```bash
-python -m venv env
+make install
 ```
 
-### Activate venv
+This will setup a virtualenv, upgrade pip,  install dependencies, and install pre-commit
 
-- unix
-
-```bash
-source env/bin/activate
-```
-
-- windows
-
-```bash
-env\Scripts\activate.bat
-```
-
-### Install Packages
-
-```bash
-pip install -r requirements.txt
-```
+**note**: This does not activate your virtualenv! You must run `source env/bin/activate` to use the venv.
 
 ### Test
 
@@ -123,7 +107,7 @@ make lint
 ### Version & Release
 
 ```bash
-bump2version <major/minor/patch>
+make version-<major/minor/patch>
 ```
 
 ```bash
@@ -137,7 +121,7 @@ make release
 #### Setup
 
 ```bash
-pre-commit install
+make install-pre-commit
 ```
 
 #### Run all
